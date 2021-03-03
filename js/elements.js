@@ -47,34 +47,36 @@ function onGalleryListClick(event) {
   if (event.target.nodeName !== 'IMG') {
     return
   }
-  else {
+  
     refs.lightbox.classList.add('is-open');
     refs.lightbox__image.src = event.target.getAttribute("data-source");
     refs.lightbox__image.alt = event.target.alt
         
-    }
+    window.addEventListener('keydown', keyPress);
   
 }
 
   
 refs.btn.addEventListener('click', onBtnClickClose);
 
-function onBtnClickClose(event) { 
+function onBtnClickClose() { 
   // event.preventDefault();
   refs.lightbox.classList.remove("is-open");
   refs.lightbox__image.src = '';
   refs.lightbox__image.alt = '';
-  
+  window.removeEventListener('keydown', keyPress);
 }
-
-window.addEventListener('keydown', event => {
-  if (event.code==="Escape") {
-    onBtnClickClose(event)
-  }
-}
-)
-
 refs.lightbox__overlay.addEventListener('click',onBtnClickClose);
+ 
+function keyPress (event) {
+    if(event.code==="Escape") {
+      onBtnClickClose(event) 
+    
+    }
+}
+
+
+
 
 
 
